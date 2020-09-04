@@ -85150,6 +85150,11 @@ function () {
     };
   }
 
+  Comapny.prototype.markerContent = function () {
+    return "\n            <div>\n             <h1>Welcome to, " + this.comapnyName + "</h1>\n             <h2>" + this.catchPhrase + "</h2>\n            </div>\n        ";
+  };
+
+  ;
   return Comapny;
 }();
 
@@ -85177,12 +85182,20 @@ function () {
   }
 
   CustomMap.prototype.addMarker = function (mappable) {
-    new google.maps.Marker({
+    var _this = this;
+
+    var marker = new google.maps.Marker({
       map: this.googleMap,
       position: {
         lat: mappable.location.lat,
         lng: mappable.location.lng
       }
+    });
+    marker.addListener('click', function () {
+      var infoWindow = new google.maps.InfoWindow({
+        content: mappable.markerContent()
+      });
+      infoWindow.open(_this.googleMap, marker);
     });
   };
 
@@ -85245,6 +85258,11 @@ function () {
     };
   }
 
+  User.prototype.markerContent = function () {
+    return "\n            <div>\n             <h1>Hello there, " + this.name + "</h1>\n            </div>\n        ";
+  };
+
+  ;
   return User;
 }();
 
@@ -85293,7 +85311,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60870" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61106" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
